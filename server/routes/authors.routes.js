@@ -26,4 +26,13 @@ router.post("/create", (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: "Error submiting author", err }))
 })
 
+//actualiza un autor 
+router.put('/:id/edit', (req, res) => {
+    const { id } = req.params;
+    Author
+        .findByIdAndUpdate(id, req.body, { new: true })
+        .then(author => res.status(200).json({ author, message: "Author edited" }))
+        .catch(err => res.status(500).json({ code: 500, message: "Error editing", err }))
+})
+
 module.exports = router
