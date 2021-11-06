@@ -11,7 +11,7 @@ class AuthorService {
     getAuthors = () => this.instance.get("/");
     getOneAuthor = (id) => this.instance.get(`/${id}`);
     editAuthor = (id, updatedData) => this.instance.put(`/${id}/edit`, updatedData);
-    createAuthor = (authors) => this.instance.post("/", authors);
+    createAuthor = (author) => this.instance.post("/create", author);
 }
 
 export default AuthorService;
