@@ -27,6 +27,10 @@ export default class BookList extends Component {
                     <Button>Create</Button>
                 </Link>
 
+                <Link to="/">
+                    <Button>Back</Button>
+                </Link>
+
             </div>
 
         )

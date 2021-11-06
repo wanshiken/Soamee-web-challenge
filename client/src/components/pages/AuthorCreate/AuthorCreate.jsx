@@ -1,6 +1,7 @@
 import React from 'react';
 import { Input, Button, Form } from 'antd';
 import AuthorService from '../../../services/author.service';
+import { Link } from 'react-router-dom';
 
 
 
@@ -53,7 +54,13 @@ export default class AuhorCreate extends React.Component {
                     <Button type="primary" htmlType="submit">
                         Submit
                     </Button>
+
+                    <Link to="/authors">
+                        <Button> Back </Button>
+                    </Link>
                 </Form.Item>
+
+                
             </Form>
         </div>
     }

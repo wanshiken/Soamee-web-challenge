@@ -1,6 +1,9 @@
 import React from 'react';
 import { Input, Button, Form, Select } from 'antd';
 import BookService from '../../../services/book.service';
+import AuthorService from '../../../services/author.service';
+import {Link} from 'react-router-dom'
+import AuthorItem from '../../containers/AuthorItem/AuthorItem';
 const { Option } = Select;
 
 
@@ -10,10 +13,26 @@ export default class BookCreate extends React.Component {
         this.state = {
             name: '',
             isbn: '',
-            author:{}
+            author:[]
         }
         this.bookService = new BookService();
+        this.authorService = new AuthorService();
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    componentDidMount() {
+        this.getAuthors();
+    }
+
+    getAuthors = () => {
+        this.authorService.getAuthors()
+            .then(res => {
+                this.setState({
+                    ...this.state,
+                    authors: res.data
+                })
+            })
+            .catch(err => console.error(err))
     }
 
 
@@ -25,8 +44,12 @@ export default class BookCreate extends React.Component {
     }
 
     render() {
+
+        const { author } = this.state;
+
         return <div>
             <h1>BookCreate</h1>
+            
             <Form onFinish={this.onSubmit}>
                 <Form.Item
                     label="name"
@@ -63,7 +86,8 @@ export default class BookCreate extends React.Component {
                         placeholder="Select an author"
                         allowClear
                     >
-                        <Option value="author">{this.state.author}</Option>
+            
+                        <Option value={author.map((author) => <AuthorItem key={author._id} author={author.firstName} />)}></Option>
 
                     </Select>
                 </Form.Item>
@@ -73,6 +97,10 @@ export default class BookCreate extends React.Component {
                     <Button type="primary" htmlType="submit">
                         Submit
                     </Button>
+
+                    <Link to="/books">
+                        <Button> Back </Button>
+                    </Link>
                 </Form.Item>
             </Form>
         </div>
