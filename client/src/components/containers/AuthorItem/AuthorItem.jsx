@@ -16,7 +16,7 @@ export default class AuthorItem extends Component {
 
 
     componentDidMount() {
-        this.authorService.getAuthors(this.props.author).then((resp) => {
+        this.authorService.getOneAuthor(this.props.author).then((resp) => {
             this.setState({ author: resp.data.author });
         })
     }
@@ -24,10 +24,11 @@ export default class AuthorItem extends Component {
     render() {
         
         const { author } = this.state;
+        
         return (
             <div>
                 
-                <span>{author.firstName} {author.lastName}</span>
+                <h1>{author.firstName} {author.lastName}</h1>
                 
             </div>
 

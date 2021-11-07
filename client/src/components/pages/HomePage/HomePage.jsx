@@ -8,9 +8,13 @@ export default class HomePage extends Component {
     return (
 
       <div>
-        <h1> Books and authors </h1>
-        <Link to="/books">Books</Link>
-        <Link to="/authors">Authors</Link>
+        <h1> Soamee Web Challenge </h1>
+        <h2><Link to="/books">Books </Link>
+        
+          <Link to="/authors">Authors</Link>
+        
+
+        </h2>
       </div>
 
     )

@@ -4,6 +4,7 @@ import BookService from '../../../services/book.service';
 import AuthorService from '../../../services/author.service';
 import {Link} from 'react-router-dom'
 import AuthorItem from '../../containers/AuthorItem/AuthorItem';
+import BookItem from '../../containers/BookItem/BookItem';
 const { Option } = Select;
 
 
@@ -42,14 +43,13 @@ export default class BookCreate extends React.Component {
             this.authorService.createBook(this.state);
         }
     }
-
+    
     render() {
-
-        const { author } = this.state;
-
+        
+        const {authors} = this.state
         return <div>
             <h1>BookCreate</h1>
-            
+
             <Form onFinish={this.onSubmit}>
                 <Form.Item
                     label="name"
@@ -71,7 +71,7 @@ export default class BookCreate extends React.Component {
                     }} />
                 </Form.Item>
 
-               
+
 
                 <Form.Item
                     name="author"
@@ -81,13 +81,13 @@ export default class BookCreate extends React.Component {
                             required: true,
                         },
                     ]}
-                >
+                    >
                     <Select
                         placeholder="Select an author"
                         allowClear
                     >
-            
-                        <Option value={author.map((author) => <AuthorItem key={author._id} author={author.firstName} />)}></Option>
+                        
+                        { <Option value={[this.state.author]}></Option> }
 
                     </Select>
                 </Form.Item>
@@ -102,6 +102,8 @@ export default class BookCreate extends React.Component {
                         <Button> Back </Button>
                     </Link>
                 </Form.Item>
+
+                {/* {authors.map((author) => <BookItem key={author._id}  firstName={author.author} />)}  */}
             </Form>
         </div>
     }
