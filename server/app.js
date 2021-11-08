@@ -21,7 +21,7 @@ app.use("/api", allRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 
-app.use((req, res) => res.sendFile(__dirname + "/public/index.html"));
+app.use((req, res) => res.sendFile(__dirname + "/public/build/index.html"));
 require("./error-handling")(app);
 
 
