@@ -4,7 +4,7 @@ import { Button } from 'antd';
 import AuthorItem from '../../containers/AuthorItem/AuthorItem';
 import AuthorService from '../../../services/author.service';
 
-export default class BookList extends Component {
+export default class AuthorList extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -38,6 +38,8 @@ export default class BookList extends Component {
             <div>
                 <h1>Authors</h1>
                 {authors.map((author) => <AuthorItem key={author._id}  firstName={author.firstName} lastName={author.lastName} />)}
+            <div>
+
                 <Link to="/authors/create">
                     <Button>Create</Button>
                 </Link>
@@ -46,6 +48,7 @@ export default class BookList extends Component {
                     <Button>Back</Button>
                 </Link>
 
+            </div>
             </div>
 
         )

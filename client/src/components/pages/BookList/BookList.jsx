@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import BookService from '../../../services/book.service';
 import BookItem from '../../containers/BookItem/BookItem';
 import { Link } from 'react-router-dom';
-import { Button } from 'antd';
+import { Table, Button, Space, List, Avatar } from 'antd';
+import AuthorItem from '../../containers/AuthorItem/AuthorItem';
+
 
 export default class BookList extends Component {
     constructor(props) {
@@ -11,6 +13,7 @@ export default class BookList extends Component {
             show: false,
             showItem: false,
             books: [],
+            authors: []
         }
         this.bookService = new BookService();
     }
@@ -33,17 +36,30 @@ export default class BookList extends Component {
     render() {
         const { books } = this.state
 
+        const { authors } = this.state
+
         return (
-            <div>
+            <div className='booklist'>
                 <h1>Books</h1>
-                {books.map((book) => <BookItem key={book._id} author={book.author} isbn={book.isbn} id={book._id} name={book.name} />)}
+                <List
+                    itemLayout="horizontal"
+                    dataSource={books}
+                    renderItem={item => (
+                        <List.Item className='booklistitem'>
+                            <BookItem key={item._id} author={item.author} isbn={item.isbn} id={item._id} name={item.name} />
+                        </List.Item>
+                    )}
+                />,
+            <div className='button-bottom'>
+
                 <Link to="/books/create">
-                    <Button>Create</Button>
+                        <p > <Button className='createbutton' >Create</Button> </p>
                 </Link>
 
                 <Link to="/">
-                    <Button> Back </Button>
+                    <p className='backbutton'> <Button> Back </Button> </p>
                 </Link>
+            </div>
 
             </div>
 

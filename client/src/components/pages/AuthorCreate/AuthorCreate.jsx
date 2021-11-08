@@ -28,7 +28,7 @@ export default class AuhorCreate extends React.Component {
     render() {
         return <div>
             <h1>AuthorCreate</h1>
-            <Form onFinish={this.onSubmit}>
+            <Form className='formauthorcreate' onFinish={this.onSubmit}>
                 <Form.Item
                     label="First Name"
                     name="firstName"
@@ -51,14 +51,16 @@ export default class AuhorCreate extends React.Component {
 
 
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit">
-                        Submit
-                    </Button>
-
-                    <Link to="/authors">
-                        <Button> Back </Button>
-                    </Link>
+                    
                 </Form.Item>
+
+                <Button className='authorcreatebutton' type="primary" htmlType="submit">
+                    Submit
+                </Button>
+
+                <Link to="/authors">
+                    <Button> Back </Button>
+                </Link>
 
                 
             </Form>

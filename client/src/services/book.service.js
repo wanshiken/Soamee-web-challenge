@@ -11,7 +11,7 @@ class BookService {
     getBooks = () => this.instance.get("/");
     getOneBook = (id) => this.instance.get(`/${id}`);
     editBook = (id, updatedData) => this.instance.put(`/${id}/edit`, updatedData);
-    createBook = (books) => this.instance.post("/", books);
+    createBook = (book) => this.instance.post("/create", book);
 }
 
 export default BookService;

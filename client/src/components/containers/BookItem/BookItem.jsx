@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 import AuthorService from '../../../services/author.service';
 import { Table, Button, Space } from 'antd';
+import AuthorList from '../../pages/AuthorList/AuthorList';
+import BookService from '../../../services/book.service';
 
 
 
@@ -9,9 +12,11 @@ export default class BookItem extends Component {
         super(props)
         this.state = {
             author: {},
+            book:{}
         }
 
         this.authorService = new AuthorService();
+        this.bookService = new BookService();
 
     }
 
@@ -23,52 +28,32 @@ export default class BookItem extends Component {
     }
 
     render() {
-        const { isbn, name } = this.props;
-        const { author } = this.state;
-        const data = [
-            {
-                key: '',
-                name: this.props.name,
-                isbn: this.props.isbn,
-                author: {
-                    firstName: this.props.firstName,
-                    lastName: this.state.author.lastName
-                }
-            }];
-        const columns = [
-            {
-                title: 'Name',
-                dataIndex: 'name',
-                key: 'name',
-                
-               
-            },
-            {
-                title: 'ISBN',
-                dataIndex: 'isbn',
-                key: 'isbn',
-               
-            },
-            {
-                title: 'Author',
-                dataIndex: 'author',
-                key: 'author',
-            
-                
-            },
-        ];
-        return (
-            <div>
-               
-                
+        const { isbn, name, id } = this.props;
+        const { author } = this.state; 
+        const {book} = this.state
 
-                <Space style={{ marginBottom: 16 }}>
-                    
-                </Space>
-                <Table columns={columns} dataSource={data}  />
+        return (
+            <div className='bookitem'>
+
+
+                <p id='bookname'>{name}</p>
+                
+                {/* <p>{isbn}</p>
+                <p>{author.firstName} {author.lastName}</p> */}
+
+                <h3>
+                <Link to={{ pathname: `/books/${id}` }}>
+                    <Button className='detailbutton'><p>Details</p></Button>
+                </Link>
+
+                <Link to={`/books/${id}/edit`}>
+                    <Button><p>Edit</p></Button>
+                </Link>
+                </h3>
+
 
             </div>
-            
+
 
         )
     }

@@ -23,12 +23,15 @@ export default class AuthorItem extends Component {
 
     render() {
         
-        const { author } = this.state;
+        
         
         return (
-            <div>
+            <div className='authorlist'>
                 
-                <h1>{author.firstName} {author.lastName}</h1>
+                
+                <li>{this.props.firstName} {this.props.lastName}</li>
+            
+                
                 
             </div>
 

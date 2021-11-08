@@ -2,9 +2,7 @@ import React from 'react';
 import { Input, Button, Form, Select } from 'antd';
 import BookService from '../../../services/book.service';
 import AuthorService from '../../../services/author.service';
-import {Link} from 'react-router-dom'
-import AuthorItem from '../../containers/AuthorItem/AuthorItem';
-import BookItem from '../../containers/BookItem/BookItem';
+import { Link } from 'react-router-dom'
 const { Option } = Select;
 
 
@@ -14,7 +12,7 @@ export default class BookCreate extends React.Component {
         this.state = {
             name: '',
             isbn: '',
-            author:[]
+            authors: []
         }
         this.bookService = new BookService();
         this.authorService = new AuthorService();
@@ -22,35 +20,26 @@ export default class BookCreate extends React.Component {
     }
 
     componentDidMount() {
-        this.getAuthors();
+        this.authorService.getAuthors().then((resp) => {
+            this.setState({ authors: resp.data });
+        })
     }
-
-    getAuthors = () => {
-        this.authorService.getAuthors()
-            .then(res => {
-                this.setState({
-                    ...this.state,
-                    authors: res.data
-                })
-            })
-            .catch(err => console.error(err))
-    }
-
 
     onSubmit() {
         console.log(this.state)
         if (this.state.name && this.state.isbn && this.state.author) {
-            this.authorService.createBook(this.state);
+            const { name, isbn, author } = this.state;
+            this.bookService.createBook({ name, isbn, author });
         }
     }
-    
+
     render() {
-        
-        const {authors} = this.state
+
+
         return <div>
             <h1>BookCreate</h1>
 
-            <Form onFinish={this.onSubmit}>
+            <Form className='bookformcreate' onFinish={this.onSubmit}>
                 <Form.Item
                     label="name"
                     name="name"
@@ -81,29 +70,35 @@ export default class BookCreate extends React.Component {
                             required: true,
                         },
                     ]}
-                    >
+                >
                     <Select
                         placeholder="Select an author"
                         allowClear
+                        onChange={(value) => this.setState({ author: value })}
                     >
-                        
-                        { <Option value={[this.state.author]}></Option> }
+
+
+                        {this.state.authors.map(author => <Option value={author._id}>{author.firstName} {author.lastName}</Option>)}
 
                     </Select>
+
+                    
+
                 </Form.Item>
 
 
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit">
-                        Submit
-                    </Button>
-
-                    <Link to="/books">
-                        <Button> Back </Button>
-                    </Link>
+                    
                 </Form.Item>
 
-                {/* {authors.map((author) => <BookItem key={author._id}  firstName={author.author} />)}  */}
+                <Button className='submitbuttoncreate'type="primary" htmlType="submit">
+                    Submit
+                </Button>
+
+                <Link to="/books">
+                    <Button> Back </Button>
+                </Link>
+
             </Form>
         </div>
     }
