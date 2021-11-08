@@ -31,31 +31,28 @@ export default class BookUpdate extends React.Component {
     }
 
     handleSubmit = () => {
-       
-
-        this.bookService.editBook(this.state.location.id, this.state)
-       
-        .then(() => {
-            this.setState({
-                name:'',
-                isbn:'',
-                authors:[]
+        this.bookService.editBook(this.props.match.params.id, this.state)
+            .then(() => {
+                this.setState({
+                    name: '',
+                    isbn: '',
+                    authors: []
                 })
             })
             .catch(err => console.error(err))
-        }
+    }
 
 
-        componentDidMount() {
-            this.authorService.getAuthors().then((resp) => {
-                this.setState({ authors: resp.data });
-            })
-        }
+    componentDidMount() {
+        this.authorService.getAuthors().then((resp) => {
+            this.setState({ authors: resp.data });
+        })
+    }
 
-        render() {
+    render() {
 
 
-            return <div>
+        return <div>
             <h1>Edit Book</h1>
 
             <Form className='bookformupdate' onFinish={this.handleSubmit}>
@@ -65,7 +62,7 @@ export default class BookUpdate extends React.Component {
                     rules={[{ required: true, message: 'Please edit your books name!' }]}
                 >
                     <Input onChange={(e) => this.handleChange(e)} name="name" value={this.state.name}
-                     />
+                    />
                 </Form.Item>
 
                 <Form.Item
@@ -95,23 +92,23 @@ export default class BookUpdate extends React.Component {
                     >
 
 
-                            {this.state.authors.map(author => <Option key={author._id} value={author._id}>{author.firstName} {author.lastName}</Option>)}
+                        {this.state.authors.map(author => <Option key={author._id} value={author._id}>{author.firstName} {author.lastName}</Option>)}
 
                     </Select>
                 </Form.Item>
 
 
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    
+
                 </Form.Item>
 
-                    <Button className='updatebutton' type="primary" htmlType="submit">
-                        Submit
-                    </Button>
+                <Button className='updatebutton' type="primary" htmlType="submit">
+                    Submit
+                </Button>
 
-                    <Link to="/books">
-                        <Button> Back </Button>
-                    </Link>
+                <Link to="/books">
+                    <Button> Back </Button>
+                </Link>
             </Form>
         </div>
     }
